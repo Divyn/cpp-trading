@@ -31,15 +31,33 @@ This document explains all C++ concepts, keywords, types, and names used across 
 
 ### `<map>`
 - **Purpose**: Associative container library
-- **Used in**: `orderbook.cpp`
+- **Used in**: `orderbook.cpp`, `order_execution.cpp`
 - **Provides**: `std::map` template class
 - **What it does**: Stores key-value pairs in sorted order. Used for mapping prices to quantities in the order book
 
 ### `<vector>`
 - **Purpose**: Dynamic array container library
-- **Used in**: `orderbook.cpp`
+- **Used in**: `orderbook.cpp`, `order_execution.cpp`
 - **Provides**: `std::vector` template class
 - **What it does**: Provides a dynamic array that can grow/shrink. Used to store collections of orders
+
+### `<queue>`
+- **Purpose**: Queue container library
+- **Used in**: `order_execution.cpp`
+- **Provides**: `std::queue` template class
+- **What it does**: Provides a FIFO (First In First Out) container. Used for pending orders waiting for block confirmation
+
+### `<chrono>`
+- **Purpose**: Time library
+- **Used in**: `order_execution.cpp`
+- **Provides**: `std::chrono` namespace with time durations and clocks
+- **What it does**: Provides time-related functionality for measuring durations and delays
+
+### `<thread>`
+- **Purpose**: Threading library
+- **Used in**: `order_execution.cpp`
+- **Provides**: `std::this_thread` namespace for thread operations
+- **What it does**: Provides threading utilities like sleep functions to simulate delays
 
 ### `<regex>`
 - **Purpose**: Regular expression library
@@ -49,7 +67,7 @@ This document explains all C++ concepts, keywords, types, and names used across 
 
 ### `<iomanip>`
 - **Purpose**: Input/Output manipulators library
-- **Used in**: `btc_price.cpp`, `orderbook.cpp`
+- **Used in**: `btc_price.cpp`, `orderbook.cpp`, `order_execution.cpp`
 - **Provides**: `std::fixed`, `std::setprecision`
 - **What it does**: Provides formatting functions for I/O streams. Used to format decimal numbers
 
@@ -113,19 +131,36 @@ This document explains all C++ concepts, keywords, types, and names used across 
 
 #### `struct Order`
 - **Purpose**: Represents a trading order
-- **Defined in**: `orderbook.cpp`, `trading_object.cpp`
+- **Defined in**: `orderbook.cpp`, `trading_object.cpp`, `order_execution.cpp`
 - **Members**:
   - `int id`: Unique order identifier
   - `double price`: Order price
   - `int quantity`: Number of shares/units
-  - `bool is_buy` (orderbook.cpp): `true` for buy, `false` for sell
+  - `bool is_buy` (orderbook.cpp, order_execution.cpp): `true` for buy, `false` for sell
+  - `int remaining_qty` (order_execution.cpp): Remaining quantity after partial fills
   - `std::string side` (trading_object.cpp): "BUY" or "SELL" as string
 - **What it does**: Groups related data together for a single order
+
+#### `struct Fill`
+- **Purpose**: Represents an executed order fill
+- **Defined in**: `order_execution.cpp`
+- **Members**:
+  - `int order_id`: ID of the order that was filled
+  - `double fill_price`: Actual execution price
+  - `int fill_quantity`: Quantity that was filled
+  - `double gas_cost`: Gas cost for this fill
+  - `double slippage`: Price slippage (difference from expected price)
+- **What it does**: Records execution details for on-chain order fills
 
 #### `class OrderBook`
 - **Purpose**: Represents an order book for trading
 - **Defined in**: `orderbook.cpp`
 - **What it does**: Maintains buy and sell orders organized by price, calculates best bid/ask, and displays order book data
+
+#### `class OrderExecutionEngine`
+- **Purpose**: Low-level order execution engine for on-chain trading
+- **Defined in**: `order_execution.cpp`
+- **What it does**: Simulates on-chain order execution with matching, partial fills, gas costs, slippage, and block confirmation delays
 
 ### Standard Library Types
 
@@ -156,6 +191,16 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **Purpose**: Dynamic array of Order objects
 - **Used for**: Storing collections of orders
 - **What it does**: Provides a resizable array that can hold multiple Order objects
+
+#### `std::vector<Fill>`
+- **Purpose**: Dynamic array of Fill objects
+- **Used for**: Storing execution history
+- **What it does**: Records all order fills with execution details
+
+#### `std::queue<Order>`
+- **Purpose**: FIFO queue container
+- **Used for**: Pending orders waiting for block confirmation
+- **What it does**: Stores orders in first-in-first-out order, simulating blockchain transaction queue
 
 #### `std::regex`
 - **Purpose**: Regular expression object
@@ -223,6 +268,17 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **Purpose**: Conditional execution
 - **Used for**: Decision making based on conditions
 - **Example**: `if (btcPrice > 0.0) { ... }`
+
+#### `while`
+- **Purpose**: Loop while condition is true
+- **Used for**: Repeated execution until condition becomes false
+- **Example**: `while (remaining > 0 && it != asks.end()) { ... }`
+
+#### Ternary Operator (`?:`)
+- **Purpose**: Conditional expression
+- **Syntax**: `condition ? value_if_true : value_if_false`
+- **Used for**: Short conditional assignments or expressions
+- **Example**: `(order.is_buy ? "BUY" : "SELL")` or `(remaining < available) ? remaining : available`
 
 #### `return`
 - **Purpose**: Exit function and return value
@@ -317,7 +373,8 @@ This document explains all C++ concepts, keywords, types, and names used across 
 #### `std::map::erase()`
 - **Purpose**: Remove element from map
 - **What it does**: Deletes the element with the specified key
-- **Usage**: `bids.erase(price);`
+- **Usage**: `bids.erase(price);` or `it = bids.erase(it);` (returns iterator to next element)
+- **Note**: When erasing during iteration, use iterator version to avoid invalidation
 
 #### `std::map::operator[]`
 - **Purpose**: Access or insert element
@@ -329,6 +386,11 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **Syntax**: `std::vector<Order> orders = { Order(...), Order(...) };`
 - **What it does**: Creates vector and populates with initial values
 
+#### `std::vector::push_back()`
+- **Purpose**: Add element to end of vector
+- **What it does**: Appends element to the vector, increasing its size
+- **Usage**: `fills.push_back(Fill(...));`
+
 ### Iterators and Range-Based For Loops
 
 #### Range-Based For Loop
@@ -338,6 +400,17 @@ This document explains all C++ concepts, keywords, types, and names used across 
   - `const auto&`: Automatic type deduction, const reference
   - `[price, quantity]`: Structured binding (C++17) - unpacks map key-value pairs
   - Iterates through all elements in the container
+
+#### Iterator Operations
+- **Purpose**: Traverse and modify containers
+- **Used in**: `order_execution.cpp` for order matching
+- **Operations**:
+  - `auto it = asks.begin()`: Get iterator to first element
+  - `it->first`: Access key via iterator (price)
+  - `it->second`: Access value via iterator (quantity)
+  - `it = asks.erase(it)`: Erase element and get next valid iterator (safe erasure)
+  - `++it`: Move iterator to next element
+- **What it does**: Allows safe traversal and modification of containers during iteration
 
 ---
 
@@ -422,6 +495,12 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **What it does**: More efficient than assignment in constructor body
 - **Benefits**: Direct initialization, required for const/reference members
 
+#### Member Initialization with Default Values
+- **Syntax**: `double gas_price_per_unit = 0.001;`
+- **Purpose**: Initialize class member variables with default values
+- **What it does**: Sets default value when object is created, can be overridden
+- **Used in**: Class member declarations
+
 #### Uniform Initialization
 - **Syntax**: `Order{101, 123.45, 10, "BUY"}`
 - **Purpose**: Initialize object with values
@@ -455,9 +534,10 @@ This document explains all C++ concepts, keywords, types, and names used across 
 
 #### `auto`
 - **Purpose**: Let compiler deduce type
-- **Usage**: `const auto& [price, quantity] : bids`
+- **Usage**: `const auto& [price, quantity] : bids` or `auto it = asks.begin()`
 - **What it does**: Compiler figures out the type automatically
 - **Benefits**: Shorter code, less repetition, works with complex types
+- **Common use**: Iterator types (`auto it = container.begin()`)
 
 ---
 
@@ -545,6 +625,21 @@ This document explains all C++ concepts, keywords, types, and names used across 
   - `nmemb`: Number of elements
   - `userp`: User-provided pointer (e.g., string buffer)
   - **Returns**: Number of bytes processed
+
+### Threading and Time
+
+#### `std::this_thread::sleep_for()`
+- **Purpose**: Suspend current thread for specified duration
+- **Used for**: Simulating delays (e.g., block confirmation time)
+- **Syntax**: `std::this_thread::sleep_for(std::chrono::milliseconds(3000))`
+- **What it does**: Pauses execution for the specified time duration
+- **Note**: Requires `<thread>` header and `-pthread` compiler flag
+
+#### `std::chrono::milliseconds`
+- **Purpose**: Time duration in milliseconds
+- **Used with**: `std::this_thread::sleep_for()`
+- **What it does**: Represents a time duration in milliseconds
+- **Example**: `std::chrono::milliseconds(12000)` represents 12 seconds
 
 ---
 
