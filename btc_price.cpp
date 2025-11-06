@@ -29,7 +29,7 @@ double getLatestBTCPrice() {
         
         struct curl_slist *headers = NULL;
         headers = curl_slist_append(headers, "Content-Type: application/json");
-        headers = curl_slist_append(headers, "Authorization: Bearer ory_");
+        headers = curl_slist_append(headers, "Authorization: Bearer ory_at_");
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
         
         const char *data = "{\"query\":\"{\\n  Trading {\\n    Tokens(\\n      where: {Currency: {Id: {is: \\\"bid:bitcoin\\\"}}, Interval: {Time: {Duration: {eq: 1}}}}\\n      limit: {count: 1}\\n      orderBy: {descending: Block_Time}\\n    ) {\\n      Token {\\n        Address\\n        Id\\n        IsNative\\n        Name\\n        Network\\n        Name\\n        Symbol\\n        TokenId\\n      }\\n      Block {\\n        Date\\n        Time\\n        Timestamp\\n      }\\n      Interval {\\n        Time {\\n          Start\\n          Duration\\n          End\\n        }\\n      }\\n      Volume {\\n        Base\\n        Quote\\n        Usd\\n      }\\n      Price {\\n        IsQuotedInUsd\\n        Ohlc {\\n          Close\\n          High\\n          Low\\n          Open\\n        }\\n        Average {\\n          ExponentialMoving\\n          Mean\\n          SimpleMoving\\n          WeightedSimpleMoving\\n        }\\n      }\\n    }\\n  }\\n}\\n\",\"variables\":\"{}\"}";
