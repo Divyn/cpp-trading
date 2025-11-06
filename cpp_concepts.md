@@ -667,6 +667,23 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - Structured bindings
 - Access modifiers (private/public)
 
+### `order_execution.cpp`
+**Concepts Used**:
+- Classes and objects
+- Structs (Order, Fill)
+- Constructors with initialization lists
+- Const member functions
+- STL containers (map, vector, queue)
+- Iterator operations and safe erasure
+- While loops
+- Ternary operator
+- Member initialization with default values
+- Threading (std::this_thread::sleep_for)
+- Time operations (std::chrono::milliseconds)
+- Private member functions
+- Order matching algorithms
+- Partial fill handling
+
 ### `trading_object.cpp`
 **Concepts Used**:
 - Structs
@@ -699,5 +716,9 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - Function pointer passed to library for custom handling (curl callback)
 
 ### Encapsulation
-- Private data members, public interface (`OrderBook` class)
+- Private data members, public interface (`OrderBook`, `OrderExecutionEngine` classes)
+
+### Iterator Safety Pattern
+- Safe erasure during iteration: `it = container.erase(it)` returns next valid iterator
+- Prevents iterator invalidation when modifying containers during traversal
 
