@@ -21,3 +21,10 @@ g++ -std=c++17 btc_price.cpp -o btc_price -lcurl
 ./btc_price
 ```
 
+## Running Order Execution Simulator
+
+```
+g++ -std=c++17 -pthread order_execution.cpp -o order_execution
+./order_execution
+```
+
