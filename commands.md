@@ -28,3 +28,10 @@ g++ -std=c++17 -pthread order_execution.cpp -o order_execution
 ./order_execution
 ```
 
+## Running DEX Market Maker (Liquidity Provision in Price Bands)
+
+```
+g++ -std=c++17 dex_market_maker.cpp -o dex_market_maker
+./dex_market_maker
+```
+
