@@ -83,6 +83,19 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **Provides**: CURL functions for making HTTP requests
 - **What it does**: External C library for making HTTP/HTTPS requests to APIs
 
+### `<cmath>`
+- **Purpose**: Mathematical functions library
+- **Used in**: `dex_market_maker.cpp` (included but not actively used)
+- **Provides**: Mathematical functions like trigonometric, exponential, logarithmic functions
+- **What it does**: Provides mathematical operations beyond basic arithmetic
+
+### `<algorithm>`
+- **Purpose**: Algorithm library
+- **Used in**: `dex_market_maker.cpp`
+- **Provides**: `std::remove_if`, `std::min`, `std::max`, and other algorithms
+- **What it does**: Provides common algorithms for working with containers (searching, sorting, modifying)
+- **Note**: `std::min` and `std::max` are also available in `<algorithm>` (and `<cmath>` in some contexts)
+
 ---
 
 ## Data Types
@@ -161,6 +174,33 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **Purpose**: Low-level order execution engine for on-chain trading
 - **Defined in**: `order_execution.cpp`
 - **What it does**: Simulates on-chain order execution with matching, partial fills, gas costs, slippage, and block confirmation delays
+
+#### `struct LiquidityPosition`
+- **Purpose**: Represents a liquidity position in a DEX price range
+- **Defined in**: `dex_market_maker.cpp`
+- **Members**:
+  - `int id`: Unique position identifier
+  - `double price_lower`: Lower bound of price range
+  - `double price_upper`: Upper bound of price range
+  - `double amount_token0`: Amount of token0 (e.g., USDC)
+  - `double amount_token1`: Amount of token1 (e.g., BTC)
+  - `double fees_earned`: Fees earned from trades in this range
+- **What it does**: Tracks liquidity provided in a specific price band (like Uniswap V3 positions)
+
+#### `struct Trade`
+- **Purpose**: Represents a trade event in the DEX pool
+- **Defined in**: `dex_market_maker.cpp`
+- **Members**:
+  - `double price`: Trade execution price
+  - `double amount`: Trade amount
+  - `bool is_buy`: `true` for buying token1, `false` for selling
+  - `double fee_paid`: Fee paid for this trade
+- **What it does**: Records trade information for fee distribution and history tracking
+
+#### `class DEXMarketMaker`
+- **Purpose**: DEX market maker providing liquidity in price bands
+- **Defined in**: `dex_market_maker.cpp`
+- **What it does**: Simulates liquidity provision in price ranges (Uniswap V3 style), distributes fees to active positions, and manages multiple liquidity positions
 
 ### Standard Library Types
 
@@ -391,6 +431,14 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **What it does**: Appends element to the vector, increasing its size
 - **Usage**: `fills.push_back(Fill(...));`
 
+#### `std::remove_if()`
+- **Purpose**: Remove elements from container based on condition
+- **Parameters**: Iterator range and predicate function (lambda or function pointer)
+- **Returns**: Iterator to new end of range
+- **What it does**: Moves elements matching condition to end, returns iterator to new logical end
+- **Usage**: `auto it = std::remove_if(positions.begin(), positions.end(), [id](const LiquidityPosition& pos) { return pos.id == id; });`
+- **Note**: Doesn't actually erase, must call `erase()` afterward to remove elements
+
 ### Iterators and Range-Based For Loops
 
 #### Range-Based For Loop
@@ -538,6 +586,21 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - **What it does**: Compiler figures out the type automatically
 - **Benefits**: Shorter code, less repetition, works with complex types
 - **Common use**: Iterator types (`auto it = container.begin()`)
+
+### Lambda Functions (C++11)
+
+#### Syntax
+- `[capture](parameters) { body }`
+- **Purpose**: Anonymous function objects
+- **What it does**: Creates a function inline without naming it
+- **Usage**: `[position_id](const LiquidityPosition& pos) { return pos.id == position_id; }`
+- **Capture clauses**:
+  - `[]`: Capture nothing
+  - `[=]`: Capture by value
+  - `[&]`: Capture by reference
+  - `[var]`: Capture specific variable by value
+  - `[&var]`: Capture specific variable by reference
+- **Common use**: Predicates for algorithms like `std::remove_if`, `std::find_if`
 
 ---
 
@@ -690,6 +753,23 @@ This document explains all C++ concepts, keywords, types, and names used across 
 - Dynamic memory allocation (new/delete)
 - Pointers
 - Member access via `->`
+
+### `dex_market_maker.cpp`
+**Concepts Used**:
+- Classes and objects
+- Structs (LiquidityPosition, Trade)
+- Constructors with initialization lists
+- Const member functions
+- STL containers (vector)
+- Range-based for loops
+- Algorithm library (std::remove_if)
+- Lambda functions (for predicates)
+- Nested loops for fee distribution
+- Price range checking logic
+- Fee calculation and proportional distribution
+- Member initialization with default values
+- Private helper functions
+- Iterator operations (erase with remove_if pattern)
 
 ---
 

@@ -1,0 +1,222 @@
+=== DEX MARKET MAKING SIMULATION ===
+Simulating liquidity provision in price bands (Uniswap V3 style)
+
+=== ADDING LIQUIDITY POSITIONS ===
+  [ADD LIQUIDITY] Position #1: Range $49000.00 - $51000.00 | Token0: 10000.00 | Token1: 0.00
+  [ADD LIQUIDITY] Position #2: Range $49500.00 - $50000.00 | Token0: 5000.00 | Token1: 0.00
+  [ADD LIQUIDITY] Position #3: Range $50000.00 - $50500.00 | Token0: 0.00 | Token1: 0.10
+  [ADD LIQUIDITY] Position #4: Range $45000.00 - $55000.00 | Token0: 20000.00 | Token1: 0.00
+
+=== LIQUIDITY POSITIONS ===
+Current Pool Price: $50000.00
+
+Position #1 [ACTIVE]
+  Price Range: $49000.00 - $51000.00
+  Token0 (USDC): 5000.00
+  Token1 (BTC): 0.10
+  Fees Earned: $0.00
+  Current Value: $10000.00
+
+Position #2 [ACTIVE]
+  Price Range: $49500.00 - $50000.00
+  Token0 (USDC): 0.00
+  Token1 (BTC): 0.10
+  Fees Earned: $0.00
+  Current Value: $5000.00
+
+Position #3 [ACTIVE]
+  Price Range: $50000.00 - $50500.00
+  Token0 (USDC): 5000.00
+  Token1 (BTC): 0.00
+  Fees Earned: $0.00
+  Current Value: $5000.00
+
+Position #4 [ACTIVE]
+  Price Range: $45000.00 - $55000.00
+  Token0 (USDC): 10000.00
+  Token1 (BTC): 0.20
+  Fees Earned: $0.00
+  Current Value: $20000.00
+
+
+=== SIMULATING TRADES ===
+
+[TRADE 1]
+  [TRADE] BUY 0.05 @ $50000.25 | Fee: $7.50
+
+=== LIQUIDITY POSITIONS ===
+Current Pool Price: $50000.25
+
+Position #1 [ACTIVE]
+  Price Range: $49000.00 - $51000.00
+  Token0 (USDC): 4998.76
+  Token1 (BTC): 0.10
+  Fees Earned: $1.88
+  Current Value: $10000.02
+
+Position #2 [INACTIVE]
+  Price Range: $49500.00 - $50000.00
+  Token0 (USDC): 0.00
+  Token1 (BTC): 0.00
+  Fees Earned: $0.94
+
+Position #3 [ACTIVE]
+  Price Range: $50000.00 - $50500.00
+  Token0 (USDC): 4997.50
+  Token1 (BTC): 0.00
+  Fees Earned: $0.94
+  Current Value: $5000.00
+
+Position #4 [ACTIVE]
+  Price Range: $45000.00 - $55000.00
+  Token0 (USDC): 9999.52
+  Token1 (BTC): 0.20
+  Fees Earned: $3.75
+  Current Value: $20000.05
+
+
+[TRADE 2]
+  [TRADE] SELL 0.10 @ $49999.75 | Fee: $15.00
+
+=== LIQUIDITY POSITIONS ===
+Current Pool Price: $49999.75
+
+Position #1 [ACTIVE]
+  Price Range: $49000.00 - $51000.00
+  Token0 (USDC): 5001.24
+  Token1 (BTC): 0.10
+  Fees Earned: $6.16
+  Current Value: $9999.97
+
+Position #2 [ACTIVE]
+  Price Range: $49500.00 - $50000.00
+  Token0 (USDC): 0.00
+  Token1 (BTC): 0.00
+  Fees Earned: $0.94
+  Current Value: $0.00
+
+Position #3 [INACTIVE]
+  Price Range: $50000.00 - $50500.00
+  Token0 (USDC): 0.00
+  Token1 (BTC): 2.50
+  Fees Earned: $3.08
+
+Position #4 [ACTIVE]
+  Price Range: $45000.00 - $55000.00
+  Token0 (USDC): 10000.48
+  Token1 (BTC): 0.20
+  Fees Earned: $12.32
+  Current Value: $19999.95
+
+
+[TRADE 3]
+  [TRADE] BUY 0.20 @ $50000.75 | Fee: $30.00
+
+=== LIQUIDITY POSITIONS ===
+Current Pool Price: $50000.75
+
+Position #1 [ACTIVE]
+  Price Range: $49000.00 - $51000.00
+  Token0 (USDC): 4996.29
+  Token1 (BTC): 0.10
+  Fees Earned: $16.16
+  Current Value: $10000.07
+
+Position #2 [INACTIVE]
+  Price Range: $49500.00 - $50000.00
+  Token0 (USDC): 0.00
+  Token1 (BTC): 0.00
+  Fees Earned: $0.94
+
+Position #3 [ACTIVE]
+  Price Range: $50000.00 - $50500.00
+  Token0 (USDC): 124813.75
+  Token1 (BTC): 0.00
+  Fees Earned: $3.08
+  Current Value: $125001.25
+
+Position #4 [ACTIVE]
+  Price Range: $45000.00 - $55000.00
+  Token0 (USDC): 9998.57
+  Token1 (BTC): 0.20
+  Fees Earned: $32.32
+  Current Value: $20000.15
+
+
+=== EXTERNAL PRICE MOVEMENT ===
+Market price moves to $51,500
+
+=== LIQUIDITY POSITIONS ===
+Current Pool Price: $51500.00
+
+Position #1 [INACTIVE]
+  Price Range: $49000.00 - $51000.00
+  Token0 (USDC): 4996.29
+  Token1 (BTC): 0.00
+  Fees Earned: $16.16
+
+Position #2 [INACTIVE]
+  Price Range: $49500.00 - $50000.00
+  Token0 (USDC): 0.00
+  Token1 (BTC): 0.00
+  Fees Earned: $0.94
+
+Position #3 [INACTIVE]
+  Price Range: $50000.00 - $50500.00
+  Token0 (USDC): 124813.75
+  Token1 (BTC): 0.00
+  Fees Earned: $3.08
+
+Position #4 [ACTIVE]
+  Price Range: $45000.00 - $55000.00
+  Token0 (USDC): 7105.01
+  Token1 (BTC): 0.26
+  Fees Earned: $32.32
+  Current Value: $20300.04
+
+
+[TRADE 4]
+  [TRADE] SELL 0.15 @ $51499.23 | Fee: $23.18
+
+=== LIQUIDITY POSITIONS ===
+Current Pool Price: $51499.23
+
+Position #1 [INACTIVE]
+  Price Range: $49000.00 - $51000.00
+  Token0 (USDC): 4996.29
+  Token1 (BTC): 0.00
+  Fees Earned: $16.16
+
+Position #2 [INACTIVE]
+  Price Range: $49500.00 - $50000.00
+  Token0 (USDC): 0.00
+  Token1 (BTC): 0.00
+  Fees Earned: $0.94
+
+Position #3 [INACTIVE]
+  Price Range: $50000.00 - $50500.00
+  Token0 (USDC): 124813.75
+  Token1 (BTC): 0.00
+  Fees Earned: $3.08
+
+Position #4 [ACTIVE]
+  Price Range: $45000.00 - $55000.00
+  Token0 (USDC): 7106.51
+  Token1 (BTC): 0.26
+  Fees Earned: $55.50
+  Current Value: $20299.84
+
+
+=== MARKET MAKER SUMMARY ===
+Current Price: $51499.23
+Total Positions: 4
+Total Fees Earned: $75.67
+Total Trades: 4
+Active Positions: 1
+
+=== KEY CONCEPTS ===
+1. Liquidity is provided in specific price bands/ranges
+2. Only positions with current price in their range earn fees
+3. As price moves, different positions become active/inactive
+4. Fees are distributed proportionally to active liquidity
+5. Narrower ranges = higher capital efficiency but more rebalancing
