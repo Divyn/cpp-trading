@@ -14,6 +14,13 @@ g++ -std=c++17 orderbook.cpp -o orderbook
 ./orderbook
 ```
 
+## Running OrderBook Partial Fills (Part 2)
+
+```
+g++ -std=c++17 orderbook_partial_fills.cpp -o orderbook_partial_fills
+./orderbook_partial_fills
+```
+
 ## Fetching Latest BTC Price
 
 ```
