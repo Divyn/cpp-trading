@@ -42,3 +42,10 @@ g++ -std=c++17 dex_market_maker.cpp -o dex_market_maker
 ./dex_market_maker
 ```
 
+## Running OrderBook Price-Time Priority (Part 3)
+
+```
+g++ -std=c++17 orderbook_price_time.cpp -o orderbook_price_time
+./orderbook_price_time
+```
+
