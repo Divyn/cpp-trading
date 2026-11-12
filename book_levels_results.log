@@ -1,0 +1,19 @@
+g++ (Debian 14.2.0-19) 14.2.0
+# pass 1 2026-11-12T17:19:24Z
+book,median_s,million_ops_per_s,min_s,max_s,fills,traded,cancelled,best_bid,best_ask,check
+std::map,0.2393,4.178,0.2358,0.2533,229767,5867053,9988684,49904,49905,match
+sorted std::vector,0.2378,4.205,0.2284,0.2434,229767,5867053,9988684,49904,49905,match
+flat array by tick,0.1959,5.104,0.1908,0.1993,229767,5867053,9988684,49904,49905,match
+std::unordered_map + best,0.2011,4.972,0.1944,0.2095,229767,5867053,9988684,49904,49905,match
+# pass 2 2026-11-12T17:19:33Z
+book,median_s,million_ops_per_s,min_s,max_s,fills,traded,cancelled,best_bid,best_ask,check
+std::map,0.2246,4.453,0.2205,0.2425,229767,5867053,9988684,49904,49905,match
+sorted std::vector,0.2278,4.389,0.2255,0.2520,229767,5867053,9988684,49904,49905,match
+flat array by tick,0.1854,5.392,0.1799,0.1889,229767,5867053,9988684,49904,49905,match
+std::unordered_map + best,0.2059,4.856,0.1962,0.2537,229767,5867053,9988684,49904,49905,match
+# pass 3 2026-11-12T17:19:41Z
+book,median_s,million_ops_per_s,min_s,max_s,fills,traded,cancelled,best_bid,best_ask,check
+std::map,0.2440,4.099,0.2285,0.2702,229767,5867053,9988684,49904,49905,match
+sorted std::vector,0.2427,4.121,0.2303,0.2455,229767,5867053,9988684,49904,49905,match
+flat array by tick,0.1940,5.155,0.1842,0.2235,229767,5867053,9988684,49904,49905,match
+std::unordered_map + best,0.1946,5.138,0.1916,0.2144,229767,5867053,9988684,49904,49905,match
