@@ -8,7 +8,7 @@
 //   id, price (ticks), quantity, flags (1 = buy, 2 = cancel)
 //
 // Build: g++ -O2 -std=c++17 gen_ops.cpp -o gen_ops
-// Run:   ./gen_ops [operations] > ops.bin
+// Run:   ./gen_ops [operations] [seed] > ops.bin   (seed defaults to 42)
 
 #include <algorithm>
 #include <cstdint>
@@ -19,7 +19,7 @@
 
 int main(int argc, char** argv) {
     int count = argc > 1 ? std::atoi(argv[1]) : 1000000;
-    std::mt19937 rng(42);
+    std::mt19937 rng(argc > 2 ? std::atoi(argv[2]) : 42);
     std::uniform_int_distribution<int> percent(0, 99);
     std::uniform_int_distribution<int> side(0, 1);
     std::uniform_int_distribution<int> away(1, 50);

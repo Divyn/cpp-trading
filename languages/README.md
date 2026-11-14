@@ -30,3 +30,19 @@ Build and run (Debian 13):
 
     apt-get install -y g++ rustc golang-go openjdk-21-jdk-headless nodejs python3
     python3 run.py
+
+## Follow-up races
+
+Same `ops.bin`, same server, same score (million operations per second, median
+of 5 runs, 3 passes), and every contender must make the same trades. Run each
+script in this folder after `run.py`. `race.py` holds the shared timing code.
+
+| Script | What it races | Results |
+| --- | --- | --- |
+| `run_compilers.py` | `orderbook.cpp` built 8 ways: g++ -O0 to -O3, -march=native, profile-guided, clang -O2 and -O3 (needs `clang`) | `results_compilers.log` |
+| `run_python.py` | `orderbook.py` unchanged under CPython, PyPy, Cython, mypyc and Nuitka | `results_python.log` |
+| `run_js.py` | `orderbook.js` unchanged under Node 20, 22, 24 and 26, Bun and Deno | `results_js.log` |
+| `run_warmup.py` | first replay vs fifth replay for all 6 languages, 20 fresh starts each | `results_warmup.log` |
+
+`gen_ops.cpp` takes an optional seed (`./gen_ops 1000000 7`). The profile-guided
+build trains on seed 7, so it is not tuned to the orders it is timed on.

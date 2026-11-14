@@ -4,3 +4,12 @@ orderbook_cpp
 orderbook_rust
 orderbook_go
 *.class
+ob_*
+train.bin
+*.gcda
+orderbook.cjs
+cython/
+mypyc/
+nuitka/
+.runtimes/
+.venv-nuitka/
