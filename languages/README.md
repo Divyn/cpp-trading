@@ -43,6 +43,11 @@ script in this folder after `run.py`. `race.py` holds the shared timing code.
 | `run_python.py` | `orderbook.py` unchanged under CPython, PyPy, Cython, mypyc and Nuitka | `results_python.log` |
 | `run_js.py` | `orderbook.js` unchanged under Node 20, 22, 24 and 26, Bun and Deno | `results_js.log` |
 | `run_warmup.py` | first replay vs fifth replay for all 6 languages, 20 fresh starts each | `results_warmup.log` |
+| `run_pyversions.py` | `orderbook.py` unchanged on CPython 3.11, 3.12, 3.13, 3.14, 3.15 and 3.15 with `PYTHON_JIT=1`, all from `uv python install` | `results_pyversions.log`, `results_pyversions_side.log` |
 
 `gen_ops.cpp` takes an optional seed (`./gen_ops 1000000 7`). The profile-guided
 build trains on seed 7, so it is not tuned to the orders it is timed on.
+
+Python versions, million operations per second (2026-11-16): 3.11 0.377,
+3.15 0.447, 3.14 0.457, 3.13 0.457, 3.12 0.465, 3.15 with the JIT on 0.783.
+The JIT is off by default in 3.15 (`results_pyversions_side.log`).
