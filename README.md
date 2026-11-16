@@ -75,6 +75,12 @@ and the raw results are in [`languages/README.md`](languages/README.md).
 
 Video: [I Raced the Same Order Book in 6 Languages](https://youtube.com/shorts/xC_Mp3iLx-U)
 
+### `api-calls/`: the same 100 API calls, 5 ways in Python
+
+`requests` in a loop, one `Session`, a thread pool, `httpx` and `aiohttp`,
+against a slow test server and a real HTTPS API. See
+[`api-calls/README.md`](api-calls/README.md).
+
 ## Build and run
 
 You need `g++` with C++17. `btc_price.cpp` also needs libcurl.

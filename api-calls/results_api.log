@@ -1,0 +1,14 @@
+# python 3.13.5, requests 2.34.2, httpx 0.28.1, aiohttp 3.14.5
+# 2026-11-16T09:29:15Z
+## local server, 100 ms delay: http://127.0.0.1:33277/, 100 calls, 10 in flight, median of 5 runs
+requests.get in a loop,10.247,10.27 10.24 10.25 10.24 10.27
+requests.Session in a loop,10.170,10.17 10.17 10.17 10.17 10.18
+thread pool of 10 + Session,1.049,1.06 1.05 1.04 1.04 1.17
+asyncio + httpx,1.524,1.59 1.24 1.53 1.23 1.52
+asyncio + aiohttp,1.031,1.03 1.44 1.03 1.03 1.33
+## public HTTPS: https://1.1.1.1/cdn-cgi/trace, 100 calls, 10 in flight, median of 5 runs
+requests.get in a loop,3.288,3.24 3.39 3.30 3.29 3.27
+requests.Session in a loop,0.505,0.67 0.48 0.50 0.57 0.51
+thread pool of 10 + Session,0.333,0.41 0.34 0.33 0.33 0.33
+asyncio + httpx,0.442,0.59 0.46 0.44 0.44 0.44
+asyncio + aiohttp,0.087,0.20 0.09 0.10 0.09 0.09
