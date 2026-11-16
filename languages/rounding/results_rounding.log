@@ -1,0 +1,39 @@
+# 1 vCPU, 458 MB RAM, 2026-11-16T09:19:49Z
+# Python 3.13.5 | node v20.19.2 | g++ (Debian 14.2.0-19) 14.2.0 | rustc 1.85.1 (4eb161250 2025-03-15) (built from a source tarball) | go version go1.24.4 linux/amd64 | openjdk version "21.0.13" 2026-10-20
+language,function,0.5,1.5,2.5,-0.5,-1.5,-2.5,drift_prices,drift_negatives
+python,round,0,2,2,0,-2,-2,0.0,0.0
+python,Decimal ROUND_HALF_UP,1,2,3,-1,-2,-3,500.0,-500.0
+node,Math.round,1,2,3,0,-1,-2,500,500
+node,Intl halfEven,0,2,2,0,-2,-2,0,0
+cpp,std::round,1,2,3,-1,-2,-3,500,-500
+cpp,std::rint,0,2,2,0,-2,-2,0,0
+rust,f64::round,1,2,3,-1,-2,-3,500,-500
+rust,f64::round_ties_even,0,2,2,0,-2,-2,0,0
+go,math.Round,1,2,3,-1,-2,-3,500,-500
+go,math.RoundToEven,0,2,2,0,-2,-2,0,0
+java,Math.round,1,2,3,0,-1,-2,500.0,500.0
+java,Math.rint,0,2,2,0,-2,-2,0.0,0.0
+python,round,0,2,2,0,-2,-2,0.0,0.0
+python,Decimal ROUND_HALF_UP,1,2,3,-1,-2,-3,500.0,-500.0
+node,Math.round,1,2,3,0,-1,-2,500,500
+node,Intl halfEven,0,2,2,0,-2,-2,0,0
+cpp,std::round,1,2,3,-1,-2,-3,500,-500
+cpp,std::rint,0,2,2,0,-2,-2,0,0
+rust,f64::round,1,2,3,-1,-2,-3,500,-500
+rust,f64::round_ties_even,0,2,2,0,-2,-2,0,0
+go,math.Round,1,2,3,-1,-2,-3,500,-500
+go,math.RoundToEven,0,2,2,0,-2,-2,0,0
+java,Math.round,1,2,3,0,-1,-2,500.0,500.0
+java,Math.rint,0,2,2,0,-2,-2,0.0,0.0
+python,round,0,2,2,0,-2,-2,0.0,0.0
+python,Decimal ROUND_HALF_UP,1,2,3,-1,-2,-3,500.0,-500.0
+node,Math.round,1,2,3,0,-1,-2,500,500
+node,Intl halfEven,0,2,2,0,-2,-2,0,0
+cpp,std::round,1,2,3,-1,-2,-3,500,-500
+cpp,std::rint,0,2,2,0,-2,-2,0,0
+rust,f64::round,1,2,3,-1,-2,-3,500,-500
+rust,f64::round_ties_even,0,2,2,0,-2,-2,0,0
+go,math.Round,1,2,3,-1,-2,-3,500,-500
+go,math.RoundToEven,0,2,2,0,-2,-2,0,0
+java,Math.round,1,2,3,0,-1,-2,500.0,500.0
+java,Math.rint,0,2,2,0,-2,-2,0.0,0.0

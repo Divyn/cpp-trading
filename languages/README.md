@@ -51,3 +51,24 @@ build trains on seed 7, so it is not tuned to the orders it is timed on.
 Python versions, million operations per second (2026-11-16): 3.11 0.377,
 3.15 0.447, 3.14 0.457, 3.13 0.457, 3.12 0.465, 3.15 with the JIT on 0.783.
 The JIT is off by default in 3.15 (`results_pyversions_side.log`).
+
+## `rounding/`: round(2.5) in 6 languages
+
+Not a race. `run_rounding.sh` rounds 0.5, 1.5, 2.5 and their negatives with each
+language's default round function and its round-half-to-even function, then
+rounds 1,000 prices that end in 50 paise (100.50 to 1,099.50) and prints how far
+the rounded total moves from the real total. Results in `results_rounding.log`
+(3 passes, same output each time).
+
+| Language | Default function | round(2.5) | round(-2.5) | Total drift on 1,000 prices |
+| --- | --- | --- | --- | --- |
+| Python | `round` | 2 | -2 | 0 |
+| JavaScript | `Math.round` | 3 | -2 | +500 |
+| Java | `Math.round` | 3 | -2 | +500 |
+| C++ | `std::round` | 3 | -3 | +500 |
+| Rust | `f64::round` | 3 | -3 | +500 |
+| Go | `math.Round` | 3 | -3 | +500 |
+
+Each of the five also has a half-to-even function (`Intl` halfEven, `Math.rint`,
+`std::rint`, `round_ties_even`, `math.RoundToEven`) that drifts 0. Python's
+`Decimal` with `ROUND_HALF_UP` drifts +500.
