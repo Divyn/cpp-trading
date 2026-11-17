@@ -1,0 +1,9 @@
+region,client,requests,errors,network_median_ms,code_median_ms,total_median_ms,total_p99_ms,first_request_median_ms
+Tokyo,Python,1000,0,5.83,0.091,5.92,143.00,13.9
+Tokyo,C++,1000,0,4.29,0.097,4.39,123.43,25.9
+Singapore,Python,1000,0,75.38,0.129,75.52,241.23,86.2
+Singapore,C++,1000,0,73.23,0.139,73.35,245.27,104.4
+Mumbai,Python,1000,0,156.44,0.072,156.52,306.95,164.7
+Mumbai,C++,1000,0,154.57,0.078,154.65,360.04,164.5
+New York,Python,1000,0,160.60,0.141,160.74,358.35,179.6
+New York,C++,1000,0,159.67,0.161,159.86,408.91,199.3

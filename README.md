@@ -81,6 +81,11 @@ Video: [I Raced the Same Order Book in 6 Languages](https://youtube.com/shorts/x
 against a slow test server and a real HTTPS API. See
 [`api-calls/README.md`](api-calls/README.md).
 
+### `latency/`: Python vs C++ vs server location
+
+The same order book request from 4 cities in Python and C++, to see whether the
+language or the server's city costs more. See [`latency/README.md`](latency/README.md).
+
 ## Build and run
 
 You need `g++` with C++17. `btc_price.cpp` also needs libcurl.
